@@ -1,11 +1,55 @@
 <!doctype html>
 <html>
-  <head>
-    <title>Starter</title>
-    <link rel="stylesheet" type="text/css" href="app.css">
-  </head>
-  <body>
-    <h1>Hello World!</h1>
-    <script src="app.js"></script>
-  </body>
+
+<head>
+	<title>Starter</title>
+	<link rel="stylesheet" type="text/css" href="app.css">
+</head>
+
+<body>
+	<h1>Hi there</h1>
+	<script src="app.js"></script>
+	<script type="text/javascript">
+	window.onload = function() {
+
+		console.log("allright!")
+
+		function scale(width, height) {
+			return "scale=iw*min(" + width + "/iw\\," + height + "/ih):ih*min(" + width + "/iw\\," + height + "/ih)";
+		}
+
+		var size = "400x400";
+
+		var ffm = ffmpeg("/Users/Simon/Desktop/holobeats.mov").outputOptions(['-c:v', 'libvpx', '-pix_fmt', 'yuv420p', '-c:a', 'libvorbis', '-quality', 'good', '-b:v', '2M', '-crf', '5', '-f', 'webm']);
+		ffm.on('start', function(commandLine) {
+			console.log('Spawned Ffmpeg with command: ' + commandLine);
+		});
+		var match;
+		if (match = size.match(/(\d+)x(\d+)/)) {
+			ffm.addOutputOptions("-vf", scale(match[1], match[2]));
+		} else {
+			ffm.size(size);
+		}
+
+		ffm.output("/Users/Simon/Desktop/cool.webm");
+
+		ffm.on('progress', function(progress) {
+			console.log('Processing: ' + progress.percent + '% done');
+		});
+
+		ffm.on("error", function(error, stdout, stderr) {
+			error.stderr = stderr;
+			console.log(error);
+		});
+
+		ffm.on("end", function() {
+			console.log('End!');
+			//callback();
+		});
+
+		ffm.run();
+	};
+	</script>
+</body>
+
 </html>
