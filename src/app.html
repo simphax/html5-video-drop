@@ -7,49 +7,16 @@
 </head>
 
 <body>
-	<h1>Hi there</h1>
+	<div class="droparea"></div>
+	<div class="filename">&nbsp;</div>
+	<button class="convert-btn">Convert</button>
+	<h2 class="title-progress">MP4</h2>
+	<div class="progress progress-mp4"><div class="progress-bar"></div></div>
+	<h2 class="title-progress">WEBM</h2>
+	<div class="progress progress-webm"><div class="progress-bar"></div></div>
 	<script src="app.js"></script>
-	<script type="text/javascript">
-	window.onload = function() {
-
-		console.log("allright!")
-
-		function scale(width, height) {
-			return "scale=iw*min(" + width + "/iw\\," + height + "/ih):ih*min(" + width + "/iw\\," + height + "/ih)";
-		}
-
-		var size = "400x400";
-
-		var ffm = ffmpeg("/Users/Simon/Desktop/holobeats.mov").outputOptions(['-c:v', 'libvpx', '-pix_fmt', 'yuv420p', '-c:a', 'libvorbis', '-quality', 'good', '-b:v', '2M', '-crf', '5', '-f', 'webm']);
-		ffm.on('start', function(commandLine) {
-			console.log('Spawned Ffmpeg with command: ' + commandLine);
-		});
-		var match;
-		if (match = size.match(/(\d+)x(\d+)/)) {
-			ffm.addOutputOptions("-vf", scale(match[1], match[2]));
-		} else {
-			ffm.size(size);
-		}
-
-		ffm.output("/Users/Simon/Desktop/cool.webm");
-
-		ffm.on('progress', function(progress) {
-			console.log('Processing: ' + progress.percent + '% done');
-		});
-
-		ffm.on("error", function(error, stdout, stderr) {
-			error.stderr = stderr;
-			console.log(error);
-		});
-
-		ffm.on("end", function() {
-			console.log('End!');
-			//callback();
-		});
-
-		ffm.run();
-	};
-	</script>
+	<script src="js/lib/jquery-2.1.4.min.js"></script>
+	<script src="js/gui.js"></script>
 </body>
 
 </html>

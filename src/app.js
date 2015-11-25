@@ -8,16 +8,6 @@ var settings = require('./components/settings');
 var windowBehaviour = require('./components/window-behaviour');
 var dispatcher = require('./components/dispatcher');
 
-var fs = require('fs');
-var ffmpeg_dl = require('ffmpeg-static');
-console.log(ffmpeg_dl.path);
-fs.chmodSync(ffmpeg_dl.path,0777);
-var ffprobe_dl = require('ffprobe-static');
-console.log(ffprobe_dl.path);
-fs.chmodSync(ffprobe_dl.path,0777);
-var ffmpeg = require("fluent-ffmpeg");
-ffmpeg.setFfmpegPath(ffmpeg_dl.path);
-ffmpeg.setFfprobePath(ffprobe_dl.path);
 
 // Ensure there's an app shortcut for toast notifications to work on Windows
 if (platform.isWindows) {

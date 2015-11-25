@@ -3,3 +3,72 @@ html, body {
   padding: 0;
   border: none;
 }
+
+body {
+	background-color: #333;
+	color: #191919;
+}
+body, p, button {
+	font-family: 'Open Sans', sans-serif;
+}
+
+body {
+	padding: 40px;
+}
+
+
+.droparea {
+	width: 200px;
+	height: 200px;
+	border: 10px dashed #222;
+	border-radius: 30px;
+	margin: 0 auto;
+}
+
+.droparea.dropping {
+	border: 10px solid #ccc;
+	background-color: #ccc;
+}
+
+.filename {
+	text-align: center;
+}
+
+.convert-btn {
+	color: #ccc;
+	display: block;
+	background-color: transparent;
+	border: 4px solid #ccc;
+	font-size: 14px;
+	border-radius: 10px;
+	text-transform: uppercase;
+	margin: 0 auto;
+	margin-top: 20px;
+	padding: 10px 30px;
+	outline: none;
+	font-weight: 800;
+}
+
+.convert-btn:hover {
+	cursor: pointer;
+	background-color: #ccc;
+	color: #999;
+}
+
+
+.title-progress {
+	font-size: 14px;
+}
+
+.progress {
+	width: 100%;
+	height: 5px;
+	background-color: #222;
+}
+
+.progress-bar {
+	transition: all 0.5s;
+	width: 0%;
+	height: 100%;
+	background-color: #35f;
+}
