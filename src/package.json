@@ -1,13 +1,13 @@
 {
   "main": "app.html",
-  "name": "HTML5 Video Dropper",
+  "name": "Dropper",
   "version": "0.1.0",
   "app-id": "com.simphax.html5videodropper",
   "chromium-args": "--disable-setuid-sandbox",
   "window": {
     "width": 400,
     "height": 400,
-    "title": "Starter",
+    "title": "Dropper",
     "icon": "icons/icon.png",
     "toolbar": false,
     "show": false

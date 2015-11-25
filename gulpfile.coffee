@@ -24,28 +24,28 @@ gulp.task 'clean', ->
         macIcns: './assets-osx/icon.icns'
         macZip: true
         macPlist:
-          NSHumanReadableCopyright: 'aluxian.com'
-          CFBundleIdentifier: 'com.aluxian.starter'
+          NSHumanReadableCopyright: 'simphax.com'
+          CFBundleIdentifier: 'com.simphax.html5videodropper'
       .on 'end', ->
         if process.argv.indexOf('--toolbar') > 0
           shelljs.sed '-i', '"toolbar": true', '"toolbar": false', './src/package.json'
 
 # Only runs on OSX (requires XCode properly configured)
 gulp.task 'sign:osx64', ['build:osx64'], ->
-  shelljs.exec 'codesign -v -f -s "Alexandru Rosianu Apps" ./build/Starter/osx64/Starter.app/Contents/Frameworks/*'
-  shelljs.exec 'codesign -v -f -s "Alexandru Rosianu Apps" ./build/Starter/osx64/Starter.app'
-  shelljs.exec 'codesign -v --display ./build/Starter/osx64/Starter.app'
-  shelljs.exec 'codesign -v --verify ./build/Starter/osx64/Starter.app'
+  shelljs.exec 'codesign -v -f -s "Alexandru Rosianu Apps" ./build/Dropper/osx64/Dropper.app/Contents/Frameworks/*'
+  shelljs.exec 'codesign -v -f -s "Alexandru Rosianu Apps" ./build/Dropper/osx64/Dropper.app'
+  shelljs.exec 'codesign -v --display ./build/Dropper/osx64/Dropper.app'
+  shelljs.exec 'codesign -v --verify ./build/Dropper/osx64/Dropper.app'
 
 # Create a DMG for osx64; only works on OS X because of appdmg
 gulp.task 'pack:osx64', ['sign:osx64'], ->
   shelljs.mkdir '-p', './dist'            # appdmg fails if ./dist doesn't exist
-  shelljs.rm '-f', './dist/Starter.dmg'   # appdmg fails if the dmg already exists
+  shelljs.rm '-f', './dist/Dropper.dmg'   # appdmg fails if the dmg already exists
 
   gulp.src []
     .pipe require('gulp-appdmg')
       source: './assets-osx/dmg.json'
-      target: './dist/Starter.dmg'
+      target: './dist/Dropper.dmg'
 
 # Create a nsis installer for win32; must have `makensis` installed
 gulp.task 'pack:win32', ['build:win32'], ->
@@ -61,7 +61,7 @@ gulp.task 'pack:win32', ['build:win32'], ->
         './assets-linux/starter.desktop'
         './assets-linux/after-install.sh'
         './assets-linux/after-remove.sh'
-        './build/Starter/linux' + arch + '/**'
+        './build/Dropper/linux' + arch + '/**'
       ]
         .pipe gulp.dest './build/linux/opt/starter'
 
@@ -93,11 +93,11 @@ gulp.task 'pack:all', (callback) ->
 
 # Build osx64 and run it
 gulp.task 'run:osx64', ['build:osx64'], ->
-  shelljs.exec 'open ./build/Starter/osx64/Starter.app'
+  shelljs.exec 'open ./build/Dropper/osx64/Dropper.app'
 
 # Run osx64 without building
 gulp.task 'open:osx64', ->
-  shelljs.exec 'open ./build/Starter/osx64/Starter.app'
+  shelljs.exec 'open ./build/Dropper/osx64/Dropper.app'
 
 # Upload release to GitHub
 gulp.task 'release', ['pack:all'], (callback) ->
