@@ -1,12 +1,12 @@
 {
   "main": "app.html",
-  "name": "Starter",
+  "name": "HTML5 Video Dropper",
   "version": "0.1.0",
-  "app-id": "com.aluxian.starter",
+  "app-id": "com.simphax.html5videodropper",
   "chromium-args": "--disable-setuid-sandbox",
   "window": {
-    "width": 800,
-    "height": 600,
+    "width": 400,
+    "height": 400,
     "title": "Starter",
     "icon": "icons/icon.png",
     "toolbar": false,

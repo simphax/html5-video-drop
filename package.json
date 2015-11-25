@@ -1,10 +1,10 @@
 {
-  "name": "starter",
+  "name": "html5-video-drop",
   "version": "0.1.0",
-  "description": "NW.js starter project powered by Gulp.",
+  "description": "Convert videos for HTML5 via a simple drag and drop interface",
   "repository": {
     "type": "git",
-    "url": "git@github.com:Aluxian/nwjs-starter.git"
+    "url": "git@github.com:simphax/html5-video-drop.git"
   },
   "scripts": {
     "postinstall": "(cd src && npm install)"
