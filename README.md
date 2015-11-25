@@ -1,39 +1,4 @@
-# NW.js Starter
-
-[![Join the chat at https://gitter.im/Aluxian/nwjs-starter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Aluxian/nwjs-starter?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![Get help on Codementor](https://cdn.codementor.io/badges/get_help_github.svg)](https://www.codementor.io/aluxian)
-
-This is a sample project to get you up and running with [NW.js](http://nwjs.io/).
-
-If you need help, read my tutorial [here](http://blog.aluxian.com/how-to-create-a-cross-platform-desktop-app-with-nw-js/). This is a screenshot of the app that the tutorial guides you through, Klout:
-
-![Cross-platform screenshot](screenshot.jpg)
-
-## Features
-
-* native notifications
-* auto update
-* gulp tasks to
-  * build each release
-  * sign the OS X app
-  * pack
-    * Windows: nsis installer
-    * OSX: dmg
-    * Linux: deb package
-  * upload to GitHub
-* remembers window position when closed
-* customizable settings in the right-click menu
-  * run as menu bar app
-  * launch on OS startup
-  * open links in the browser
-
-What doesn't work:
-
-* tray icon on linux
-* rpm builds
-
-Not done yet:
-* Windows binary signing
+# HTML5 Video Dropper
 
 ## Pre-requisites
 
@@ -52,6 +17,11 @@ Quickly install this on OS X:
 
     brew install wine makensis
     sudo gem install fpm
+
+## Debug
+
+## OS X:
+    ./cache/0.12.2/osx64/nwjs.app/Contents/MacOS/nwjs ./src
 
 ## Build
 
