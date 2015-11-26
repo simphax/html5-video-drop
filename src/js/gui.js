@@ -34,30 +34,32 @@ $(window).on('drop', function(e) {
 
 var droparea = $('.droparea');
 
-droparea.on('dragover', function() {
+$('body').on('dragover', function() {
 	$(this).addClass('dropping');
 	return false;
 });
 
-droparea.on('dragleave', function() {
+$('body').on('dragleave', function() {
 	$(this).removeClass('dropping');
 	return false;
 });
 
-droparea.on('drop', function(e) {
+$('body').on('drop', function(e) {
 	e.preventDefault();
+
+	$(this).removeClass('dropping');
+	$(this).addClass('dropped');
+	$(this).removeClass('loaded');
 
 	droppedFile = e.originalEvent.dataTransfer.files[0];
 	console.log(droppedFile);
 	$('.filename').html(droppedFile.name);
 
-	$(this).addClass('dropped');
-
-	var theDroparea = $(this);
+	var element = $(this);
 	getVideoMeta(droppedFile.path, function(err, meta) {
 		if (err) {
 			console.log('Could not get file meta');
-			theDroparea.removeClass('dropped');
+			element.removeClass('dropped');
 			return;
 		}
 
@@ -78,8 +80,10 @@ var setThumbnails = function(files) {
 }
 
 var showSettings = function() {
+	$('body').removeClass('dropped');
+	$('body').addClass('loaded');
 	droparea.addClass('thumbnails');
-	droparea.css('background-image', 'url(\'' + thumbnails[0] + '\')');
+	$('.droparea-thumbnails img').attr('src', thumbnails[0]);
 	droparea.on('mousemove', function(e) {
 		var relX = e.pageX - $(this).offset().left;
 		var width = $(this).outerWidth();
@@ -88,7 +92,7 @@ var showSettings = function() {
 		steps = steps < 0 ? 0 : steps;
 		steps = steps > numThumbs ? numThumbs : steps;
 
-		$(this).css('background-image', 'url(\'' + thumbnails[steps] + '\')');
+		$('.droparea-thumbnails img').attr('src', thumbnails[steps]);
 	});
 }
 
@@ -109,7 +113,7 @@ var generateThumbnails = function(videoFile, callback) {
 			async.times(numThumbs, function(i, callback) {
 				var thumbsPath = thumbsDir + '/thumb' + i + '.jpg';
 				console.log('Saving thumbs to ' + thumbsPath);
-				var thumbffm = ffmpeg().outputOptions(['-ss', i * thumbGap, '-i', videoFile, '-qscale:v', '5', '-vframes', '1']);
+				var thumbffm = ffmpeg().outputOptions(['-ss', i * thumbGap, '-i', videoFile, '-qscale:v', '1', '-vframes', '1']);
 				thumbffm.output(thumbsPath);
 				thumbffm.on('error', function(err, stdout, stderr) {
 					err.stderr = stderr;

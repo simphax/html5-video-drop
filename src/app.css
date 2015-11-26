@@ -1,89 +1,171 @@
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   border: none;
 }
 
 body {
-	background-color: #333;
-	color: #191919;
+  background-color: #333;
+  color: #191919;
 }
-body, p, button {
-	font-family: 'Open Sans', sans-serif;
+
+body,
+p,
+button {
+  font-family: 'Open Sans', sans-serif;
 }
 
 body {
-	padding: 40px;
+  padding: 40px;
 }
 
+body.dropping {
+  background-color: #444;
+}
+
+.droparea-container {
+  width: 100%;
+  min-height: 240px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 .droparea {
-	width: 300px;
-	height: 200px;
-	border: 10px dashed #222;
-	border-radius: 30px;
-	margin: 0 auto;
-	transition: all .2s;
+  width: 120px;
+  height: 120px;
+  border: 8px dashed #222;
+  border-radius: 30px;
+  margin: 0 auto;
+  background-repeat: no-repeat;
+  transition: all .3s cubic-bezier(0.215, 0.610, 0.355, 1.000);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
-.droparea.dropping {
-	width: 320px;
-	height: 220px;
-	background: #444;
+body.dropping .droparea {
+  width: 160px;
+  height: 160px;
 }
 
-.droparea.dropped {
-	width: 320px;
-	height: 220px;
-	border: 5px solid #222;
+body.dropped .droparea {
+  width: 160px;
+  height: 160px;
+  border: 5px solid #222;
 }
 
-.droparea.thumbnails {
-	background-color: #000;
-	background-position: center center;
-	background-size: cover;
-	transition: all 0s;
+body.loaded .droparea {
+  width: 100%;
+  height: auto;
+  border: 5px solid #222;
+  border-radius: 10px;
+  transition: all .1s cubic-bezier(0.215, 0.610, 0.355, 1.000);
+}
+body.loaded.dropping .droparea {
+  width: 160px;
+  height: 160px;
+  border: 8px dashed #222;
+  border-radius: 30px;
+  transition: all .3s cubic-bezier(0.215, 0.610, 0.355, 1.000);
+}
+
+.droparea-thumbnails {
+  display: none;
+}
+
+.droparea-thumbnails > img {
+  width: 100%;
+}
+
+body.loaded .droparea-thumbnails {
+  display: block;
+}
+
+body.dropping .droparea-thumbnails {
+  display: none;
+}
+
+.droparea-desc {
+  font-weight: 800;
+  color: #222;
+  text-transform: uppercase;
+  text-align: center;
+  transition: all .1s;
+  opacity: 1.0;
+}
+
+body.dropping .droparea-desc {
+  opacity: 0.0;
+}
+
+body.dropped .droparea-desc {
+  display: none;
+}
+
+body.loaded .droparea-desc {
+  display: none;
+}
+
+.droparea-loading {
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+body.dropped .droparea-loading {
+  display: flex;
+}
+
+.settings {
+  display: none;
+}
+
+body.loaded .settings {
+  display: block;
 }
 
 .filename {
-	text-align: center;
+  text-align: center;
 }
 
 .convert-btn {
-	color: #ccc;
-	display: block;
-	background-color: transparent;
-	border: 4px solid #ccc;
-	font-size: 14px;
-	border-radius: 10px;
-	text-transform: uppercase;
-	margin: 0 auto;
-	margin-top: 20px;
-	padding: 10px 30px;
-	outline: none;
-	font-weight: 800;
+  color: #ccc;
+  display: block;
+  background-color: transparent;
+  border: 4px solid #ccc;
+  font-size: 14px;
+  border-radius: 10px;
+  text-transform: uppercase;
+  margin: 0 auto;
+  margin-top: 20px;
+  padding: 10px 30px;
+  outline: none;
+  font-weight: 800;
 }
 
 .convert-btn:hover {
-	cursor: pointer;
-	background-color: #ccc;
-	color: #999;
+  cursor: pointer;
+  background-color: #ccc;
+  color: #999;
 }
 
-
 .title-progress {
-	font-size: 14px;
+  font-size: 14px;
 }
 
 .progress {
-	width: 100%;
-	height: 5px;
-	background-color: #222;
+  width: 100%;
+  height: 5px;
+  background-color: #222;
 }
 
 .progress-bar {
-	transition: all 0.5s;
-	width: 0%;
-	height: 100%;
-	background-color: #35f;
+  transition: all 0.5s;
+  width: 0%;
+  height: 100%;
+  background-color: #35f;
 }
