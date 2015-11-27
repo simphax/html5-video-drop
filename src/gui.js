@@ -223,3 +223,26 @@ $('.convert-btn').on('click', function() {
 		ffm.run();
 	}
 });
+
+$('.select').each(function() {
+	var parent = $(this);
+	$(this).find('.select-item').on('click', function() {
+		console.log('select item click');
+		parent.find('.select-item').removeClass('select-item-selected');
+		$(this).addClass('select-item-selected');
+	});
+});
+
+$('.slideselect').each(function() {
+	var parent = $(this);
+	$(this).find('.slideselect-item').on('click', function() {
+		console.log('slideselect item click');
+		parent.find('.slideselect-item').removeClass('slideselect-item-selected');
+		$(this).addClass('slideselect-item-selected');
+
+		var offsetLeft = $(this).offset().left - $(this).parent().offset().left;
+		parent.find('.slideselect-cursor').css('left', offsetLeft + 'px');
+		var offsetTop = $(this).offset().top - $(this).parent().offset().top;
+		parent.find('.slideselect-cursor').css('top', offsetTop + 'px');
+	});
+});

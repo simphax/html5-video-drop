@@ -8,6 +8,11 @@
 
 <body>
 	<div class="wrapper">
+		<div class="settings">
+			<div>
+				<h2>Thumbnail</h2>
+			</div>
+		</div>
 		<div class="droparea-container">
 			<div class="droparea">
 				<div class="droparea-thumbnails">
@@ -23,28 +28,50 @@
 			</div>
 		</div>
 		<div class="settings">
-			<h2>Resolution</h2>
-			<select>
-				<option value="orig">Original resolution</option>
-				<option value="saab">Saab</option>
-				<option value="mercedes">Mercedes</option>
-				<option value="audi">Audi</option>
-			</select>
-			<div class="filename">&nbsp;</div>
-			<button class="convert-btn">Convert</button>
-			<h2 class="title-progress">MP4</h2>
-			<div class="progress progress-mp4">
-				<div class="progress-bar"></div>
+			<div>
+				<h2>Resolution</h2>
+				<div class="slideselect slideselect-res">
+					<div class="slideselect-cursor"></div>
+					<div class="slideselect-item slideselect-item-selected">Original</div>
+					<div class="slideselect-item">4K UHD</div>
+					<div class="slideselect-item">QHD</div>
+					<div class="slideselect-item">1080p</div>
+					<div class="slideselect-item">720p</div>
+					<div class="slideselect-item">480p</div>
+					<div class="slideselect-item">360p</div>
+					<div class="slideselect-item">240p</div>
+					<input type="hidden" class="slideselect-input">
+				</div>
+				<div class="resinput">
+					<span class="resinput-title">MAX RESOLUTION</span>
+					<input type="text" class="resinput-text resinput-width" value="1920"> x
+					<input type="text" class="resinput-text resinput-height" value="1080">
+				</div>
 			</div>
-			<h2 class="title-progress">WEBM</h2>
-			<div class="progress progress-webm">
-				<div class="progress-bar"></div>
+			<div>
+				<h2>QUALITY</h2>
+				<div class="slideselect slideselect-quality">
+					<div class="slideselect-cursor"></div>
+					<div class="slideselect-item slideselect-item-selected">Low</div>
+					<div class="slideselect-item">Medium</div>
+					<div class="slideselect-item">High</div>
+					<input type="hidden" class="slideselect-input">
+				</div>
+				<button class="convert-btn">Convert</button>
+				<h2 class="title-progress">MP4</h2>
+				<div class="progress progress-mp4">
+					<div class="progress-bar"></div>
+				</div>
+				<h2 class="title-progress">WEBM</h2>
+				<div class="progress progress-webm">
+					<div class="progress-bar"></div>
+				</div>
 			</div>
 		</div>
 	</div>
 	<script src="app.js"></script>
-	<script src="js/lib/jquery-2.1.4.min.js"></script>
-	<script src="js/gui.js"></script>
+	<script src="lib/jquery-2.1.4.min.js"></script>
+	<script src="gui.js"></script>
 	<script>
 	var fs = require('fs');
 	fs.watch('./', function() {

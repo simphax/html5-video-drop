@@ -124,7 +124,7 @@ body.dropped .droparea-loading {
 }
 
 .settings {
-  display: none;
+  /*display: none;*/
 }
 
 body.loaded .settings {
@@ -171,4 +171,140 @@ body.loaded .settings {
   width: 0%;
   height: 100%;
   background-color: #35f;
+}
+
+.settings .settings-column-left {
+  box-sizing: border-box;
+  padding-right: 20px;
+}
+
+.settings .settings-column-right {
+  box-sizing: border-box;
+  padding-left: 20px;
+}
+
+.settings h2 {
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.select {}
+
+.select-item {
+  display: block;
+  background-color: #222;
+  color: #444;
+  padding: 5px 10px;
+  border-radius: 10px;
+  font-size: 10px;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin: 6px 0px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.select-item:hover {
+  background-color: #444;
+  color: #666;
+}
+
+.select-item-selected {
+  background-color: #444;
+  box-shadow: inset 0px 1px 4px #111;
+  padding: 6px 10px 4px 10px;
+  color: #fff;
+}
+
+.select-item-selected:hover {
+  background-color: #444;
+  color: #fff;
+}
+
+.slideselect {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  background-color: #444;
+  border-radius: 5px;
+}
+
+.slideselect-cursor-wrap {}
+
+.slideselect-cursor {
+  position: absolute;
+  top: 0;
+  left: 0px;
+  transition: all .2s cubic-bezier(0.215, 0.610, 0.355, 1.000);
+  width: 33%;
+  height: 30px;
+  background-color: #222;
+  border-radius: 5px;
+  z-index: 0;
+}
+
+.slideselect-item {
+  text-align: center;
+  color: #666;
+  z-index: 1;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 11px;
+  cursor: pointer;
+  width: 33%;
+  line-height: 30px;
+}
+
+.slideselect-res .slideselect-item {
+  width: 25%;
+  line-height: 30px;
+}
+
+.slideselect-res .slideselect-cursor {
+  width: 25%;
+  height: 30px;
+}
+
+.slideselect-item:hover {
+  color: #999
+}
+
+.slideselect-item-selected {
+  color: #fff;
+}
+
+.slideselect-item-selected:hover {
+  color: #fff;
+}
+
+.resinput {
+  margin-top: 10px;
+  text-align: right;
+  font-weight: 600;
+  line-height: 23px;
+  font-size: 11px;
+}
+
+.resinput-title {
+	font-weight: 600;
+}
+
+.resinput-text {
+  background-color: #222;
+  border-radius: 5px;
+  border: none;
+  width: 40px;
+  line-height: 23px;
+  font-size: 11px;
+  text-align: center;
+  outline: none;
+  font-weight: normal;
+  color: #444;
+  border: 2px solid #333;
+}
+.resinput-text:focus {
+  border: 2px solid #111;
+  color: #fff;
 }
