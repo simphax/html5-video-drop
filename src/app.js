@@ -59,3 +59,6 @@ var reloadIntervalId = setInterval(function() {
     win.reload();
   }
 }, 10 * 1000);
+
+
+gui.Window.get().setPosition('center');

@@ -22,7 +22,15 @@ var conversionOngoing = false;
 var thumbsDir = nwgui.App.dataPath + '/tmp';
 var numThumbs = 9;
 
+$(window).on('dragstart', function() {
+	e.preventDefault();
+	return false;
+});
 
+$(window).on('dragenter', function(e) {
+	e.preventDefault();
+	return false;
+});
 $(window).on('dragover', function(e) {
 	e.preventDefault();
 	return false;
@@ -34,43 +42,67 @@ $(window).on('drop', function(e) {
 
 var droparea = $('.droparea');
 
-$('body').on('dragover', function() {
-	$(this).addClass('dropping');
+$('body').on('dragenter', function(e) {
+	var type = e.originalEvent.dataTransfer.files[0].type || null;
+	if (type.substr(0, 5) == 'video') {
+		$('body').addClass('dropping');
+		return false;
+	} else {
+		$('body').addClass('dropping-wrong');
+		return true;
+	}
+});
+
+$('body').on('dragover', function(e) {
 	return false;
 });
 
-$('body').on('dragleave', function() {
-	$(this).removeClass('dropping');
-	return false;
+$('body').on('dragleave', function(e) {
+	console.log('dragleave');
+	// Check the mouseEvent coordinates are outside of the rectangle
+	if (e.originalEvent.x > $(this).offset().left + $(this).width() || e.originalEvent.x <= $(this).offset().left || e.originalEvent.y > $(this).offset().top + $(this).height() || e.originalEvent.y <= $(this).offset().top) {
+		$('body').removeClass('dropping');
+		$('body').addClass('dropping-wrong');
+		return false;
+	}
+	return true;
 });
 
 $('body').on('drop', function(e) {
+	console.log('drop');
+	console.dir(e);
 	e.preventDefault();
 
-	$(this).removeClass('dropping');
-	$(this).addClass('dropped');
-	$(this).removeClass('loaded');
+	$('body').removeClass('dropping');
+	$('body').addClass('dropping-wrong');
 
-	droppedFile = e.originalEvent.dataTransfer.files[0];
-	console.log(droppedFile);
-	$('.filename').html(droppedFile.name);
+	var type = e.originalEvent.dataTransfer.files[0].type || null;
+	if (type.substr(0, 5) == 'video') {
+		$('body').addClass('dropped');
+		$('body').removeClass('loaded');
 
-	var element = $(this);
-	getVideoMeta(droppedFile.path, function(err, meta) {
-		if (err) {
-			console.log('Could not get file meta');
-			element.removeClass('dropped');
-			return;
-		}
+		droppedFile = e.originalEvent.dataTransfer.files[0];
+		console.log(droppedFile);
+		$('.filename').html(droppedFile.name);
 
-		droppedVideoMeta = meta;
-		generateThumbnails(droppedFile.path, function(err, files) {
-			setThumbnails(files);
-			showSettings();
+		getVideoMeta(droppedFile.path, function(err, meta) {
+			if (err) {
+				console.log('Could not get file meta');
+				$('body').removeClass('dropped');
+				return;
+			}
+
+			droppedVideoMeta = meta;
+			generateThumbnails(droppedFile.path, function(err, files) {
+				setThumbnails(files);
+				showSettings();
+			});
 		});
-	});
 
-	return false;
+		return false;
+	} else {
+		return true;
+	}
 });
 
 var thumbnails = [];
@@ -82,9 +114,8 @@ var setThumbnails = function(files) {
 var showSettings = function() {
 	$('body').removeClass('dropped');
 	$('body').addClass('loaded');
-	droparea.addClass('thumbnails');
 	$('.droparea-thumbnails img').attr('src', thumbnails[0]);
-	droparea.on('mousemove', function(e) {
+	$('.droparea').on('mousemove', function(e) {
 		var relX = e.pageX - $(this).offset().left;
 		var width = $(this).outerWidth();
 		var steps = Math.floor((relX / width) * numThumbs);
@@ -110,27 +141,32 @@ var generateThumbnails = function(videoFile, callback) {
 	fs.mkdir(nwgui.App.dataPath + '/tmp', function(err) {
 		if (!err || (err && err.code === 'EEXIST')) {
 			var thumbGap = droppedVideoMeta.format.duration / numThumbs;
+
 			async.times(numThumbs, function(i, callback) {
-				var thumbsPath = thumbsDir + '/thumb' + i + '.jpg';
-				console.log('Saving thumbs to ' + thumbsPath);
-				var thumbffm = ffmpeg().outputOptions(['-ss', i * thumbGap, '-i', videoFile, '-qscale:v', '1', '-vframes', '1']);
-				thumbffm.output(thumbsPath);
-				thumbffm.on('error', function(err, stdout, stderr) {
-					err.stderr = stderr;
-					console.log(err);
-					callback(err);
-				});
-				thumbffm.on('end', function() {
-					console.log('Done generating thumbnails');
-					callback(null, thumbsPath);
-				});
-				thumbffm.run();
+				/* to not completely lock up the main thread we do some setTimeout */
+				setTimeout(function() {
+					var thumbsPath = thumbsDir + '/thumb' + i + '.jpg';
+					console.log('Saving thumbs to ' + thumbsPath);
+					var thumbffm = ffmpeg().outputOptions(['-ss', i * thumbGap, '-i', videoFile, '-qscale:v', '1', '-vframes', '1']);
+					thumbffm.output(thumbsPath);
+					thumbffm.on('error', function(err, stdout, stderr) {
+						err.stderr = stderr;
+						console.log(err);
+						callback(err);
+					});
+					thumbffm.on('end', function() {
+						console.log('Done generating thumbnails');
+						callback(null, thumbsPath);
+					});
+					thumbffm.run();
+				}, i * 100);
 			}, function(err, files) {
 				if (err) {
 					return callback(err);
 				}
 				callback(null, files);
 			});
+
 		} else {
 			console.log(err);
 			callback(new Error('Could not create temp folder'));
