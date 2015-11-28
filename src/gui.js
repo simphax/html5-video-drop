@@ -22,11 +22,6 @@ var conversionOngoing = false;
 var thumbsDir = nwgui.App.dataPath + '/tmp';
 var numThumbs = 9;
 
-$(window).on('dragstart', function(e) {
-	e.preventDefault();
-	return false;
-});
-
 $(window).on('dragenter', function(e) {
 	e.preventDefault();
 	return false;
@@ -296,6 +291,14 @@ $('.select').each(function() {
 	});
 });
 
+$('.multiselect').each(function() {
+	var parent = $(this);
+	$(this).find('.multiselect-item').on('click', function() {
+		console.log('multiselect item click');
+		$(this).toggleClass('selected');
+	});
+});
+
 $('.slideselect').each(function() {
 	var parent = $(this);
 	$(this).find('.slideselect-item').on('click', function() {
@@ -325,6 +328,27 @@ $('.tabview-tabs').find('.tabview-tab').each(function(tabIndex){
 	});
 
 });
+
+$('.finish-file-draggable-mp4').on('dragstart',function(e){
+	console.log('dragstart file');
+	e.originalEvent.dataTransfer.setData("DownloadURL","video/mp4:video.mp4:file:///Users/Simon/Desktop/big_buck_bunny.mp4");
+	e.originalEvent.dataTransfer.effectAllowed = 'copy';
+	return true;
+});
+$('.finish-file-draggable-webm').on('dragstart',function(e){
+	console.log('dragstart file');
+	e.originalEvent.dataTransfer.setData("DownloadURL","video/webm:video.webm:file:///Users/Simon/Desktop/big_buck_bunny.webm");
+	e.originalEvent.dataTransfer.effectAllowed = 'copy';
+	return true;
+});
+$('.finish-file-draggable-thumb').on('dragstart',function(e){
+	console.log('dragstart file');
+	e.originalEvent.dataTransfer.setData("DownloadURL","image/jpeg:thumbnail.jpg:file:///Users/Simon/Desktop/thumb0.jpg");
+	e.originalEvent.dataTransfer.effectAllowed = 'copy';
+	return true;
+});
+
+
 
 var codeBlock = $('.finish-code pre code');
 hljs.highlightBlock(codeBlock.get(0));

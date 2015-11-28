@@ -13,22 +13,36 @@
 		<div class="wrapper">
 			<div>
 				<div class="finish-title"><img src="images/done.svg"></div>
-				<div class="finish-subtitle">Here are your files</div>
+				<div class="finish-subtitle">Here's your converted files</div>
 				<div class="finish-files">
 					<div class="finish-file">
-						<div class="finish-file-icon">
-							<img src="images/videoicon.png">
-						</div>
-						<div class="finish-file-title">
-							MP4
+						<div class="finish-file-draggable finish-file-draggable-mp4" draggable="true">
+							<div class="finish-file-icon">
+								<img draggable="false" src="images/videoicon.png">
+							</div>
+							<div class="finish-file-title">
+								MP4
+							</div>
 						</div>
 					</div>
 					<div class="finish-file">
-						<div class="finish-file-icon">
-							<img src="images/videoicon.png">
+						<div class="finish-file-draggable finish-file-draggable-webm" draggable="true">
+							<div class="finish-file-icon">
+								<img draggable="false" src="images/videoicon.png">
+							</div>
+							<div class="finish-file-title">
+								WEBM
+							</div>
 						</div>
-						<div class="finish-file-title">
-							WEBM
+					</div>
+					<div class="finish-file">
+						<div class="finish-file-draggable finish-file-draggable-thumb" draggable="true">
+							<div class="finish-file-icon">
+								<img draggable="false" src="images/imageicon.png">
+							</div>
+							<div class="finish-file-title">
+								THUMBNAIL
+							</div>
 						</div>
 					</div>
 				</div>
@@ -46,6 +60,7 @@
 							</video>
 						</div>
 						<div class="tabview-page finish-code">
+							<h2>Paste into your .html file</h2>
 							<pre><code class="language-html">&lt;video poster="thumbnail.jpg" controls style="width: 100%; height: auto;">
 	&lt;source src="video.mp4" type="video/mp4" />
 	&lt;source src="video.webm" type="video/webm" />
@@ -53,6 +68,16 @@
 &lt;/video></code></pre>
 						</div>
 					</div>
+					<div class="multiselect">
+						<div class="multiselect-item selected">Responsive</div>
+						<div class="multiselect-item">Video controls</div>
+						<div class="multiselect-item">Muted</div>
+						<div class="multiselect-item">Loop</div>
+						<div class="multiselect-item">No preloading</div>
+						<div class="multiselect-item">Autoplay</div>
+						<input type="hidden" class="multiselect-input">
+					</div>
+					<p>&nbsp;</p>
 				</div>
 			</div>
 		</div>
