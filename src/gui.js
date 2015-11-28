@@ -22,7 +22,7 @@ var conversionOngoing = false;
 var thumbsDir = nwgui.App.dataPath + '/tmp';
 var numThumbs = 9;
 
-$(window).on('dragstart', function() {
+$(window).on('dragstart', function(e) {
 	e.preventDefault();
 	return false;
 });
@@ -43,14 +43,16 @@ $(window).on('drop', function(e) {
 var droparea = $('.droparea');
 
 $('body').on('dragenter', function(e) {
-	var type = e.originalEvent.dataTransfer.files[0].type || null;
-	e.originalEvent.dataTransfer.dropEffect = 'copy';
-	if (type.substr(0, 5) == 'video') {
-		$('body').addClass('dropping');
-		return false;
-	} else {
-		$('body').addClass('dropping-wrong');
-		return true;
+	if (e.originalEvent.dataTransfer.files.length > 0) {
+		var type = e.originalEvent.dataTransfer.files[0].type || null;
+		e.originalEvent.dataTransfer.dropEffect = 'copy';
+		if (type.substr(0, 5) == 'video') {
+			$('body').addClass('dropping');
+			return false;
+		} else {
+			$('body').addClass('dropping-wrong');
+			return true;
+		}
 	}
 });
 
@@ -156,6 +158,16 @@ var getVideoMeta = function(videoFile, callback) {
 		callback(null, metadata);
 	});
 }
+
+var vFrameCount = function(metadata) {
+	var frameCount = 0;
+	metadata.streams.forEach(function(stream) {
+		if (stream.codec_type == 'video') {
+			frameCount = stream.nb_frames;
+		}
+	});
+	return frameCount;
+}
 var generateThumbnails = function(videoFile, callback) {
 	fs.mkdir(nwgui.App.dataPath + '/tmp', function(err) {
 		if (!err || (err && err.code === 'EEXIST')) {
@@ -166,7 +178,21 @@ var generateThumbnails = function(videoFile, callback) {
 				setTimeout(function() {
 					var thumbsPath = thumbsDir + '/thumb' + i + '.jpg';
 					console.log('Saving thumbs to ' + thumbsPath);
-					var thumbffm = ffmpeg().outputOptions(['-ss', i * thumbGap, '-i', videoFile, '-qscale:v', '1', '-vframes', '1']);
+					var ss = i * thumbGap;
+					var thumbffm;
+					ss = ss >= droppedVideoMeta.format.duration ? Math.floor(droppedVideoMeta.format.duration) : ss;
+					/*
+					if (ss == droppedVideoMeta.format.duration) {
+						console.log(ss);
+						var frameCount = vFrameCount(droppedVideoMeta);
+						console.log('last frame');
+						console.log('frameCount: ',frameCount);
+						thumbffm = ffmpeg().outputOptions(['-i', videoFile, '-vf', 'select=\'eq(n,' + (frameCount - 1) + ')\'', '-qscale:v', '1', '-vframes', '1']);
+					} else {
+						thumbffm = ffmpeg().outputOptions(['-ss', ss, '-i', videoFile, '-qscale:v', '1', '-vframes', '1']);
+					}
+					*/
+					thumbffm = ffmpeg().outputOptions(['-ss', ss, '-i', videoFile, '-qscale:v', '1', '-vframes', '1']);
 					thumbffm.output(thumbsPath);
 					thumbffm.on('error', function(err, stdout, stderr) {
 						err.stderr = stderr;
@@ -283,3 +309,24 @@ $('.slideselect').each(function() {
 		parent.find('.slideselect-cursor').css('top', offsetTop + 'px');
 	});
 });
+
+$('.tabview-tabs').find('.tabview-tab').each(function(tabIndex){
+	console.log('tab ',tabIndex);
+	$(this).on('click',function(){
+		$('.tabview-tabs').find('.tabview-tab').removeClass('selected');
+		$(this).addClass('selected');
+		$('.tabview-pages').find('.tabview-page').each(function(pageIndex){
+			if(pageIndex == tabIndex) {
+				$(this).addClass('visible');
+			} else {
+				$(this).removeClass('visible');
+			}
+		});
+	});
+
+});
+
+var codeBlock = $('.finish-code pre code').get(0);
+console.log(codeBlock);
+hljs.highlightBlock(codeBlock);
+

@@ -3,33 +3,85 @@
 
 <head>
 	<title>Starter</title>
+	<link rel="stylesheet" type="text/css" href="lib/highlight-style.css">
 	<link rel="stylesheet" type="text/css" href="app.css">
+	<link href='https://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
 </head>
 
 <body>
-	<div class="wrapper">
-		<div class="settings">
+	<div class="finish">
+		<div class="wrapper">
 			<div>
-				<h2 style="margin-top: 0">Thumbnail</h2>
+				<div class="finish-title"><img src="images/done.svg"></div>
+				<div class="finish-subtitle">Here are your files</div>
+				<div class="finish-files">
+					<div class="finish-file">
+						<div class="finish-file-icon">
+							<img src="images/videoicon.png">
+						</div>
+						<div class="finish-file-title">
+							MP4
+						</div>
+					</div>
+					<div class="finish-file">
+						<div class="finish-file-icon">
+							<img src="images/videoicon.png">
+						</div>
+						<div class="finish-file-title">
+							WEBM
+						</div>
+					</div>
+				</div>
+				<div class="finish-subtitle">Preview</div>
+				<div class="finish-preview tabview">
+					<div class="tabview-tabs">
+						<div class="tabview-tab selected">Video</div>
+						<div class="tabview-tab">Code</div>
+					</div>
+					<div class="tabview-pages">
+						<div class="tabview-page visible">
+							<video preload="metadata" poster="/Users/Simon/Desktop/thumb0.jpg" controls="controls" volume="0" style="width: 100%; height: auto;">
+								<source src="/Users/Simon/Desktop/big_buck_bunny.mp4" type="video/mp4" />
+								<source src="/Users/Simon/Desktop/big_buck_bunny.webm" type="video/webm" />
+							</video>
+						</div>
+						<div class="tabview-page finish-code">
+							<pre><code class="language-html">&lt;video poster="thumbnail.jpg" controls style="width: 100%; height: auto;">
+	&lt;source src="video.mp4" type="video/mp4" />
+	&lt;source src="video.webm" type="video/webm" />
+	&lt;p>Sorry, your browser does not support HTML5 video&lt;/p>
+&lt;/video></code></pre>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
-		<div class="droparea-container">
-			<div class="droparea">
-				<div class="droparea-thumbnails">
-					<img src="">
+	</div>
+	<div class="convert">
+		<div class="wrapper">
+			<div>
+				<div class="settings">
+					<div>
+						<h2 style="margin-top: 0">Thumbnail</h2>
+					</div>
 				</div>
-				<div class="droparea-thumbselect">
-					<div class="droparea-thumbselect-line"></div>
-					<div class="droparea-thumbselect-cursor">
-						<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 153.82 254.491" enable-background="new 0 0 153.82 254.491" xml:space="preserve">
-							<g>
-								<g>
-									<path class="droparea-thumbselect-cursor-bg" fill="#222222" d="M145.963,87.577c-0.583-1.409-1.441-2.73-2.582-3.871L85.395,25.721c-4.667-4.667-12.304-4.667-16.971,0L10.438,83.707
+				<div class="droparea-container">
+					<div class="droparea">
+						<div class="droparea-thumbnails">
+							<img src="">
+						</div>
+						<div class="droparea-thumbselect">
+							<div class="droparea-thumbselect-line"></div>
+							<div class="droparea-thumbselect-cursor">
+								<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 153.82 254.491" enable-background="new 0 0 153.82 254.491" xml:space="preserve">
+									<g>
+										<g>
+											<path class="droparea-thumbselect-cursor-bg" fill="#222222" d="M145.963,87.577c-0.583-1.409-1.441-2.73-2.582-3.871L85.395,25.721c-4.667-4.667-12.304-4.667-16.971,0L10.438,83.707
 			c-1.141,1.141-1.999,2.461-2.582,3.871C6.935,89.274,6.41,91.214,6.41,93.27v144c0,6.6,5.4,12,12,12h117c6.6,0,12-5.4,12-12v-144
 			C147.41,91.214,146.885,89.274,145.963,87.577z" />
-								</g>
-								<g>
-									<path class="droparea-thumbselect-cursor-icon" fill="#FFFFFF" d="M121.034,171.367c-0.745-0.748-1.631-1.119-2.652-1.119h-8.424c-1.454-6.323-4.488-11.792-9.102-16.407
+										</g>
+										<g>
+											<path class="droparea-thumbselect-cursor-icon" fill="#FFFFFF" d="M121.034,171.367c-0.745-0.748-1.631-1.119-2.652-1.119h-8.424c-1.454-6.323-4.488-11.792-9.102-16.407
 			c-4.615-4.615-10.083-7.651-16.404-9.103v-8.424c0-1.02-0.374-1.906-1.123-2.652c-0.745-0.745-1.628-1.119-2.648-1.119h-7.541
 			c-1.02,0-1.907,0.374-2.652,1.119c-0.745,0.746-1.119,1.631-1.119,2.652v8.424c-6.323,1.452-11.792,4.488-16.407,9.103
 			c-4.614,4.614-7.647,10.083-9.102,16.407h-8.424c-1.02,0-1.907,0.371-2.652,1.119c-0.745,0.746-1.119,1.628-1.119,2.652v7.538
@@ -46,59 +98,62 @@
 			c0.745,0.745,1.631,1.119,2.652,1.119h7.541c1.02,0,1.903-0.374,2.648-1.119c0.748-0.745,1.123-1.631,1.123-2.652v-6.422
 			c4.241,1.257,7.941,3.467,11.105,6.631c3.16,3.16,5.37,6.86,6.627,11.104h-6.423c-1.02,0-1.906,0.371-2.652,1.119
 			c-0.745,0.746-1.119,1.628-1.119,2.652v7.538C91.991,182.581,92.366,183.464,93.11,184.208L93.11,184.208z M93.11,184.208" />
-								</g>
-							</g>
-						</svg>
+										</g>
+									</g>
+								</svg>
+							</div>
+						</div>
+						<div class="droparea-desc">
+							Drop
+							<br>Video
+						</div>
+						<div class="droparea-loading">
+							<img src="images/loading.svg">
+						</div>
 					</div>
 				</div>
-				<div class="droparea-desc">
-					Drop
-					<br>Video
-				</div>
-				<div class="droparea-loading">
-					<img src="images/loading.svg">
-				</div>
-			</div>
-		</div>
-		<div class="settings">
-			<div>
-				<h2>Resolution</h2>
-				<div class="slideselect slideselect-res">
-					<div class="slideselect-cursor"></div>
-					<div class="slideselect-item slideselect-item-selected">Original</div>
-					<div class="slideselect-item">4K UHD</div>
-					<div class="slideselect-item">QHD</div>
-					<div class="slideselect-item">1080p</div>
-					<div class="slideselect-item">720p</div>
-					<div class="slideselect-item">480p</div>
-					<div class="slideselect-item">360p</div>
-					<div class="slideselect-item">240p</div>
-					<input type="hidden" class="slideselect-input">
-				</div>
-				<div class="resinput">
-					<span class="resinput-title">MAX RESOLUTION</span>
-					<input type="text" class="resinput-text resinput-width" value="1920"> x
-					<input type="text" class="resinput-text resinput-height" value="1080">
-				</div>
-			</div>
-			<div>
-				<h2>QUALITY</h2>
-				<div class="slideselect slideselect-quality">
-					<div class="slideselect-cursor"></div>
-					<div class="slideselect-item slideselect-item-selected">Low</div>
-					<div class="slideselect-item">Medium</div>
-					<div class="slideselect-item">High</div>
-					<input type="hidden" class="slideselect-input">
-				</div>
-				<div class="progressbutton convertbtn">
-					<div class="progressbutton-text">Convert</div>
-					<div class="progressbutton-bar"></div>
+				<div class="settings">
+					<div>
+						<h2>Resolution</h2>
+						<div class="slideselect slideselect-res">
+							<div class="slideselect-cursor"></div>
+							<div class="slideselect-item slideselect-item-selected">Original</div>
+							<div class="slideselect-item">4K UHD</div>
+							<div class="slideselect-item">QHD</div>
+							<div class="slideselect-item">1080p</div>
+							<div class="slideselect-item">720p</div>
+							<div class="slideselect-item">480p</div>
+							<div class="slideselect-item">360p</div>
+							<div class="slideselect-item">240p</div>
+							<input type="hidden" class="slideselect-input">
+						</div>
+						<div class="resinput">
+							<span class="resinput-title">MAX RESOLUTION</span>
+							<input type="text" class="resinput-text resinput-width" value="1920"> x
+							<input type="text" class="resinput-text resinput-height" value="1080">
+						</div>
+					</div>
+					<div>
+						<h2>QUALITY</h2>
+						<div class="slideselect slideselect-quality">
+							<div class="slideselect-cursor"></div>
+							<div class="slideselect-item slideselect-item-selected">Low</div>
+							<div class="slideselect-item">Medium</div>
+							<div class="slideselect-item">High</div>
+							<input type="hidden" class="slideselect-input">
+						</div>
+						<div class="progressbutton convertbtn">
+							<div class="progressbutton-text">Convert</div>
+							<div class="progressbutton-bar"></div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 	<script src="app.js"></script>
 	<script src="lib/jquery-2.1.4.min.js"></script>
+	<script src="lib/highlight.pack.js"></script>
 	<script src="gui.js"></script>
 	<script>
 	var fs = require('fs');
