@@ -14,12 +14,14 @@ body {
 
 body,
 p,
-button {
+button,
+input {
   font-family: 'Open Sans', sans-serif;
 }
 
 .wrapper {
-  padding: 40px;
+  margin: 40px;
+  position: relative;
 }
 
 body.dropping {
@@ -46,7 +48,12 @@ body.dropping {
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
+  overflow: visible;
+}
+
+.droparea-container {
+  min-height: 230px;
+  margin-bottom: 30px;
 }
 
 body.dropping .droparea {
@@ -63,8 +70,7 @@ body.dropped .droparea {
 body.loaded .droparea {
   width: 100%;
   height: auto;
-  border: 5px solid #222;
-  border-radius: 10px;
+  border: 0px solid #222;
   transition: all .1s cubic-bezier(0.215, 0.610, 0.355, 1.000);
 }
 
@@ -78,10 +84,14 @@ body.loaded.dropping .droparea {
 
 .droparea-thumbnails {
   display: none;
+  height: auto;
 }
 
 .droparea-thumbnails > img {
   width: 100%;
+  height: auto;
+  margin: 0;
+  padding: 0;
 }
 
 body.loaded .droparea-thumbnails {
@@ -90,6 +100,54 @@ body.loaded .droparea-thumbnails {
 
 body.dropping .droparea-thumbnails {
   display: none;
+}
+
+.droparea-thumbselect {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  z-index: 100;
+}
+
+body.loaded .droparea-thumbselect {
+  display: block;
+}
+
+body.loaded.dropping .droparea-thumbselect {
+  display: none;
+}
+
+.droparea-thumbselect:hover .droparea-thumbselect-line {
+  display: block;
+}
+
+.droparea-thumbselect-line {
+  display: none;
+  position: absolute;
+  height: 100%;
+  width: 2px;
+  margin-top: -2px;
+  margin-left: -1px;
+  top: 0;
+  left: 0px;
+  background-color: #222;
+  transition: all .1s;
+}
+
+.droparea-thumbselect-cursor {
+  position: absolute;
+  width: 16px;
+  height: 26px;
+  top: 100%;
+  left: 0px;
+  margin-top: -14px;
+  margin-left: -8px;
+  vertical-align: bottom;
+  transition: all .1s;
 }
 
 .droparea-desc {
@@ -124,10 +182,13 @@ body.dropped .droparea-loading {
 }
 
 .settings {
-  /*display: none;*/
+  opacity: 0.0;
+  display: none;
+  transition: 1s all;
 }
 
 body.loaded .settings {
+  opacity: 1.0;
   display: block;
 }
 
@@ -136,10 +197,11 @@ body.loaded .settings {
 }
 
 .convert-btn {
+  width: 100%;
   color: #ccc;
   display: block;
   background-color: transparent;
-  border: 4px solid #ccc;
+  border: 2px solid #ccc;
   font-size: 14px;
   border-radius: 10px;
   text-transform: uppercase;
@@ -147,13 +209,13 @@ body.loaded .settings {
   margin-top: 20px;
   padding: 10px 30px;
   outline: none;
-  font-weight: 800;
+  font-weight: 600;
 }
 
 .convert-btn:hover {
   cursor: pointer;
   background-color: #ccc;
-  color: #999;
+  color: #222;
 }
 
 .title-progress {
@@ -288,7 +350,7 @@ body.loaded .settings {
 }
 
 .resinput-title {
-	font-weight: 600;
+  font-weight: 600;
 }
 
 .resinput-text {
@@ -304,7 +366,60 @@ body.loaded .settings {
   color: #444;
   border: 2px solid #333;
 }
+
 .resinput-text:focus {
   border: 2px solid #111;
   color: #fff;
+}
+
+.progressbutton {
+  position: relative;
+  color: #ccc;
+  display: block;
+  border: 2px solid #ccc;
+  font-size: 14px;
+  border-radius: 5px;
+  text-transform: uppercase;
+  margin-top: 20px;
+  height: 40px;
+  line-height: 40px;
+  outline: none;
+  text-align: center;
+  font-weight: 600;
+}
+
+.progressbutton.inprogress {
+  background-color: #666;
+  color: #222;
+}
+
+.progressbutton:hover {
+  cursor: pointer;
+  background-color: #444;
+}
+
+.progressbutton.inprogress:hover {
+  cursor: pointer;
+  background-color: #666;
+}
+
+.progressbutton-bar {
+  background-color: #ccc;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 100%;
+  transition: all .5s;
+  z-index: 0;
+}
+
+.progressbutton-text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  z-index: 2;
 }

@@ -112,18 +112,35 @@ var setThumbnails = function(files) {
 }
 
 var showSettings = function() {
+	var hoverThumb = 0;
+	var selectedThumb = 0;
+
 	$('body').removeClass('dropped');
 	$('body').addClass('loaded');
 	$('.droparea-thumbnails img').attr('src', thumbnails[0]);
-	$('.droparea').on('mousemove', function(e) {
+	$('.droparea-thumbselect').on('mousemove', function(e) {
 		var relX = e.pageX - $(this).offset().left;
 		var width = $(this).outerWidth();
-		var steps = Math.floor((relX / width) * numThumbs);
-		console.log(steps);
-		steps = steps < 0 ? 0 : steps;
-		steps = steps > numThumbs ? numThumbs : steps;
+		hoverThumb = Math.floor((relX / width) * numThumbs);
+		console.log(hoverThumb);
+		hoverThumb = hoverThumb < 0 ? 0 : hoverThumb;
+		hoverThumb = hoverThumb > numThumbs ? numThumbs : hoverThumb;
+		$(this).find('.droparea-thumbselect-line').css('left', hoverThumb * (width / (numThumbs - 1)) + 'px');
+		$('.droparea-thumbnails img').attr('src', thumbnails[hoverThumb]);
+	});
+	$('.droparea-thumbselect').on('mouseleave', function(e) {
+		console.log('mouseleave');
+		var width = $(this).outerWidth();
+		$(this).find('.droparea-thumbselect-cursor').css('left', selectedThumb * (width / (numThumbs - 1)) + 'px');
+		$(this).find('.droparea-thumbselect-line').css('left', selectedThumb * (width / (numThumbs - 1)) + 'px');
+		$('.droparea-thumbnails img').attr('src', thumbnails[selectedThumb]);
+	});
 
-		$('.droparea-thumbnails img').attr('src', thumbnails[steps]);
+	$('.droparea-thumbselect').on('click', function(e) {
+		var width = $(this).outerWidth();
+		selectedThumb = hoverThumb;
+		$(this).find('.droparea-thumbselect-cursor').css('left', selectedThumb * (width / (numThumbs - 1)) + 'px');
+
 	});
 }
 
@@ -140,7 +157,7 @@ var getVideoMeta = function(videoFile, callback) {
 var generateThumbnails = function(videoFile, callback) {
 	fs.mkdir(nwgui.App.dataPath + '/tmp', function(err) {
 		if (!err || (err && err.code === 'EEXIST')) {
-			var thumbGap = droppedVideoMeta.format.duration / numThumbs;
+			var thumbGap = droppedVideoMeta.format.duration / (numThumbs - 1);
 
 			async.times(numThumbs, function(i, callback) {
 				/* to not completely lock up the main thread we do some setTimeout */
@@ -179,17 +196,18 @@ var scale = function(width, height) {
 }
 
 var ffm;
-$('.convert-btn').on('click', function() {
+$('.convertbtn').on('click', function() {
+	$(this).addClass('inprogress');
 	if (conversionOngoing) {
-		ffm.kill();
+		ffm.kill(); //Will generate an error
 		conversionOngoing = false;
-		$(this).html('CONVERT');
 	} else if (!conversionOngoing && droppedFile) {
+
+		$(this).find('.progressbutton-text').html('Converting...');
 		conversionOngoing = true;
-		$(this).html('STOP');
 		var size = '800x800';
 
-		ffm = ffmpeg(droppedFile.path).outputOptions(['-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-profile:v', 'baseline', '-preset', 'fast', '-crf', '18', '-f', 'mp4', '-ss', '30', '-t', '4']);
+		ffm = ffmpeg(droppedFile.path).outputOptions(['-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-profile:v', 'baseline', '-preset', 'fast', '-crf', '18', '-f', 'mp4']);
 		ffm.on('start', function(commandLine) {
 			console.log('Spawned Ffmpeg with command: ' + commandLine);
 		});
@@ -205,22 +223,39 @@ $('.convert-btn').on('click', function() {
 		ffm.on('progress', function(progress) {
 			console.log('Processing: ' + progress.percent + '% done');
 
-			$('.progress-mp4 .progress-bar').css('width', progress.percent + '%');
+			$('.convertbtn').find('.progressbutton-bar').css('width', progress.percent + '%');
 		});
 
 		ffm.on('error', function(err, stdout, stderr) {
 			err.stderr = stderr;
 			console.log(err);
 			conversionOngoing = false;
+			$('.convertbtn').find('.progressbutton-text').html('CONVERT');
+			$('.convertbtn').find('.progressbutton-bar').css('width', '0%');
+			$('.convertbtn').removeClass('inprogress');
 		});
 
 		ffm.on('end', function() {
 			console.log('End!');
 			conversionOngoing = false;
+			$('.convertbtn').find('.progressbutton-text').html('CONVERT');
+			$('.convertbtn').find('.progressbutton-bar').css('width', '0%');
+			$('.convertbtn').removeClass('inprogress');
 			//callback();
 		});
 
 		ffm.run();
+	}
+});
+
+$('.convertbtn').on('mouseenter', function() {
+	if (conversionOngoing) {
+		$(this).find('.progressbutton-text').html('STOP');
+	}
+});
+$('.convertbtn').on('mouseleave', function() {
+	if (conversionOngoing) {
+		$(this).find('.progressbutton-text').html('Converting...');
 	}
 });
 

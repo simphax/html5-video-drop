@@ -6,11 +6,12 @@
   "chromium-args": "--disable-setuid-sandbox",
   "window": {
     "width": 500,
-    "height": 800,
+    "height": 640,
     "title": "Dropper",
     "icon": "icons/icon.png",
     "toolbar": false,
-    "show": false
+    "show": false,
+    "resizable": false
   },
   "webkit": {
     "plugin": true

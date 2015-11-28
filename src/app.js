@@ -61,4 +61,4 @@ var reloadIntervalId = setInterval(function() {
 }, 10 * 1000);
 
 
-gui.Window.get().setPosition('center');
+//gui.Window.get().setPosition('center');
