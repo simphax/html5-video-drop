@@ -1,11 +1,11 @@
 .hljs {
   display: block;
-  background: #fff;
+  background: #555;
   padding: 50px;
   font-family: Menlo, Monaco, 'Andale Mono', 'Lucida Console', 'Courier New', monospace;
   font-weight: 400;
   overflow-x: auto;
-  color: #969896;
+  color: #fff;
   -webkit-text-size-adjust: none;
 }
 
@@ -13,10 +13,7 @@
 .bash .hljs-shebang,
 .java .hljs-javadoc,
 .javascript .hljs-javadoc,
-.rust .hljs-preprocessor {
-  color: #969896;
-}
-
+.rust .hljs-preprocessor,
 .hljs-string,
 .apache .hljs-sqbracket,
 .coffeescript .hljs-subst,
@@ -39,7 +36,7 @@
 .xml .hljs-value,
 .less .hljs-built_in,
 .scss .hljs-built_in {
-  color: #969896;
+  color: #fff;
 }
 
 .hljs-keyword,
@@ -133,10 +130,7 @@
 .cs .hljs-xmlDocTag,
 .css .hljs-tag,
 .xml .hljs-title,
-.stylus .hljs-tag {
-  color: #ff7765;
-}
-
+.stylus .hljs-tag,
 .bash .hljs-variable,
 .cs .hljs-preprocessor,
 .cs .hljs-preprocessor .hljs-keyword,
@@ -149,7 +143,7 @@
 .nginx .hljs-variable,
 .xml .hljs-tag,
 .scss .hljs-variable {
-  color: #ff7765;
+  color: #ffb9b0;
 }
 
 .bash .hljs-title,
@@ -188,7 +182,7 @@
 .stylus .hljs-title,
 .swift .hljs-title,
 .diff .hljs-chunk {
-  color: #62cc2d;
+  color: #c8f8b0;
 }
 
 .coffeescript .hljs-reserved,

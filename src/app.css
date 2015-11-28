@@ -432,7 +432,6 @@ body.loaded .settings {
 
 
 .finish {
-	display: none;
 	position: absolute;
 	left: 0;
 	top: 0;
@@ -534,9 +533,10 @@ body.loaded .settings {
 .finish-code {
 	width: 100%;
 	font-size: 14px;
-	background-color: #fff;
+	word-wrap: normal;
 }
-pre {
-	margin: 0;
-	word-wrap: break-word;
+
+.finish-code pre {
+	white-space: pre-wrap;
+	word-wrap: normal;
 }

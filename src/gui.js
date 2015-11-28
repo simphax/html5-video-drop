@@ -326,7 +326,6 @@ $('.tabview-tabs').find('.tabview-tab').each(function(tabIndex){
 
 });
 
-var codeBlock = $('.finish-code pre code').get(0);
-console.log(codeBlock);
-hljs.highlightBlock(codeBlock);
+var codeBlock = $('.finish-code pre code');
+hljs.highlightBlock(codeBlock.get(0));
 
