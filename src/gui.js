@@ -44,6 +44,7 @@ var droparea = $('.droparea');
 
 $('body').on('dragenter', function(e) {
 	var type = e.originalEvent.dataTransfer.files[0].type || null;
+	e.originalEvent.dataTransfer.dropEffect = 'copy';
 	if (type.substr(0, 5) == 'video') {
 		$('body').addClass('dropping');
 		return false;
@@ -54,6 +55,7 @@ $('body').on('dragenter', function(e) {
 });
 
 $('body').on('dragover', function(e) {
+	e.originalEvent.dataTransfer.dropEffect = 'copy';
 	return false;
 });
 
