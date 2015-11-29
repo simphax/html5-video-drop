@@ -283,43 +283,66 @@ $('.convertbtn').on('mouseleave', function() {
 });
 
 $('.select').each(function() {
-	var parent = $(this);
+	var select = $(this);
 	$(this).find('.select-item').on('click', function() {
 		console.log('select item click');
-		parent.find('.select-item').removeClass('select-item-selected');
+		select.find('.select-item').removeClass('select-item-selected');
 		$(this).addClass('select-item-selected');
 	});
 });
 
 $('.multiselect').each(function() {
-	var parent = $(this);
+	var multiselect = $(this);
 	$(this).find('.multiselect-item').on('click', function() {
-		console.log('multiselect item click');
-		$(this).toggleClass('selected');
+		var multiselectItem = $(this);
+		if (!$(this).hasClass('selected')) {
+			$(this).addClass('selected');
+			multiselect.find('input.multiselect-input').each(function() {
+				var value = multiselectItem.data('value');
+				var values = $(this).attr('value');
+				values = values ? values.split(',') : [];
+				values.push(value);
+				console.log(values);
+				$(this).attr('value',values.join(','));
+			});
+		} else {
+			$(this).removeClass('selected');
+			multiselect.find('input.multiselect-input').each(function() {
+				var value = multiselectItem.data('value');
+				var values = $(this).attr('value');
+				values = values ? values.split(',') : [];
+				var index = values.indexOf(value);
+				if(index > -1) {
+					values.splice(index,1);
+				}
+				console.log(values);
+				$(this).attr('value',values.join(','));
+			});
+		}
 	});
 });
 
 $('.slideselect').each(function() {
-	var parent = $(this);
+	var slideselect = $(this);
 	$(this).find('.slideselect-item').on('click', function() {
 		console.log('slideselect item click');
-		parent.find('.slideselect-item').removeClass('slideselect-item-selected');
+		slideselect.find('.slideselect-item').removeClass('slideselect-item-selected');
 		$(this).addClass('slideselect-item-selected');
 
 		var offsetLeft = $(this).offset().left - $(this).parent().offset().left;
-		parent.find('.slideselect-cursor').css('left', offsetLeft + 'px');
+		slideselect.find('.slideselect-cursor').css('left', offsetLeft + 'px');
 		var offsetTop = $(this).offset().top - $(this).parent().offset().top;
-		parent.find('.slideselect-cursor').css('top', offsetTop + 'px');
+		slideselect.find('.slideselect-cursor').css('top', offsetTop + 'px');
 	});
 });
 
-$('.tabview-tabs').find('.tabview-tab').each(function(tabIndex){
-	console.log('tab ',tabIndex);
-	$(this).on('click',function(){
+$('.tabview-tabs').find('.tabview-tab').each(function(tabIndex) {
+	console.log('tab ', tabIndex);
+	$(this).on('click', function() {
 		$('.tabview-tabs').find('.tabview-tab').removeClass('selected');
 		$(this).addClass('selected');
-		$('.tabview-pages').find('.tabview-page').each(function(pageIndex){
-			if(pageIndex == tabIndex) {
+		$('.tabview-pages').find('.tabview-page').each(function(pageIndex) {
+			if (pageIndex == tabIndex) {
 				$(this).addClass('visible');
 			} else {
 				$(this).removeClass('visible');
@@ -329,21 +352,21 @@ $('.tabview-tabs').find('.tabview-tab').each(function(tabIndex){
 
 });
 
-$('.finish-file-draggable-mp4').on('dragstart',function(e){
+$('.finish-file-draggable-mp4').on('dragstart', function(e) {
 	console.log('dragstart file');
-	e.originalEvent.dataTransfer.setData("DownloadURL","video/mp4:video.mp4:file:///Users/Simon/Desktop/big_buck_bunny.mp4");
+	e.originalEvent.dataTransfer.setData("DownloadURL", "video/mp4:video.mp4:file:///Users/Simon/Desktop/big_buck_bunny.mp4");
 	e.originalEvent.dataTransfer.effectAllowed = 'copy';
 	return true;
 });
-$('.finish-file-draggable-webm').on('dragstart',function(e){
+$('.finish-file-draggable-webm').on('dragstart', function(e) {
 	console.log('dragstart file');
-	e.originalEvent.dataTransfer.setData("DownloadURL","video/webm:video.webm:file:///Users/Simon/Desktop/big_buck_bunny.webm");
+	e.originalEvent.dataTransfer.setData("DownloadURL", "video/webm:video.webm:file:///Users/Simon/Desktop/big_buck_bunny.webm");
 	e.originalEvent.dataTransfer.effectAllowed = 'copy';
 	return true;
 });
-$('.finish-file-draggable-thumb').on('dragstart',function(e){
+$('.finish-file-draggable-thumb').on('dragstart', function(e) {
 	console.log('dragstart file');
-	e.originalEvent.dataTransfer.setData("DownloadURL","image/jpeg:thumbnail.jpg:file:///Users/Simon/Desktop/thumb0.jpg");
+	e.originalEvent.dataTransfer.setData("DownloadURL", "image/jpeg:thumbnail.jpg:file:///Users/Simon/Desktop/thumb0.jpg");
 	e.originalEvent.dataTransfer.effectAllowed = 'copy';
 	return true;
 });
@@ -352,4 +375,3 @@ $('.finish-file-draggable-thumb').on('dragstart',function(e){
 
 var codeBlock = $('.finish-code pre code');
 hljs.highlightBlock(codeBlock.get(0));
-

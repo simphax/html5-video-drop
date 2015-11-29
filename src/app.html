@@ -69,15 +69,14 @@
 						</div>
 					</div>
 					<div class="multiselect">
-						<div class="multiselect-item selected">Responsive</div>
-						<div class="multiselect-item">Video controls</div>
-						<div class="multiselect-item">Muted</div>
-						<div class="multiselect-item">Loop</div>
-						<div class="multiselect-item">No preloading</div>
-						<div class="multiselect-item">Autoplay</div>
-						<input type="hidden" class="multiselect-input">
+						<div class="multiselect-item selected" data-value="responsive">Responsive</div>
+						<div class="multiselect-item selected" data-value="controls">Video controls</div>
+						<div class="multiselect-item" data-value="muted">Muted</div>
+						<div class="multiselect-item" data-value="loop">Loop</div>
+						<div class="multiselect-item" data-value="preload-none">No preloading</div>
+						<div class="multiselect-item" data-value="autoplay">Autoplay</div>
+						<input type="hidden" class="multiselect-input" value="responsive,controls">
 					</div>
-					<p>&nbsp;</p>
 				</div>
 			</div>
 		</div>
