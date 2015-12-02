@@ -143,6 +143,36 @@ var showSettings = function() {
 	});
 }
 
+var expandFinish = function() {
+	var offset = $('.convertbtn').offset();
+	var width = $('.convertbtn').outerWidth();
+	var height = $('.convertbtn').outerHeight();
+	console.log(offset);
+	console.log(width);
+	console.log(height);
+	$('.finish-bg').css('left', offset.left + 'px');
+	$('.finish-bg').css('top', offset.top + 'px');
+	$('.finish-bg').css('width', width + 'px');
+	$('.finish-bg').css('height', '0px');
+	setTimeout(function() {
+		$('.finish').addClass('expanded');	
+		$('.finish-bg').addClass('expanded');
+		$('.finish-bg').css('left', 0 + 'px');
+		$('.finish-bg').css('top', 0 + 'px');
+		$('.finish-bg').css('width', '100%');
+		$('.finish-bg').css('height', '300%');
+	}, 100);
+}
+
+var closeFinish = function() {
+	$('.finish').removeClass('expanded');
+	$('.finish-bg').removeClass('expanded');
+	$('.finish-bg').css('left', '0px');
+	$('.finish-bg').css('top', '0px');
+	$('.finish-bg').css('width', '0px');
+	$('.finish-bg').css('height', '0px');
+}
+
 var getVideoMeta = function(videoFile, callback) {
 	var thumbffm = ffmpeg.ffprobe(videoFile, function(err, metadata) {
 		console.dir(metadata);
@@ -264,6 +294,7 @@ $('.convertbtn').on('click', function() {
 			$('.convertbtn').find('.progressbutton-text').html('CONVERT');
 			$('.convertbtn').find('.progressbutton-bar').css('width', '0%');
 			$('.convertbtn').removeClass('inprogress');
+			expandFinish();
 			//callback();
 		});
 
@@ -303,7 +334,7 @@ $('.multiselect').each(function() {
 				values = values ? values.split(',') : [];
 				values.push(value);
 				console.log(values);
-				$(this).attr('value',values.join(','));
+				$(this).attr('value', values.join(','));
 			});
 		} else {
 			$(this).removeClass('selected');
@@ -312,11 +343,11 @@ $('.multiselect').each(function() {
 				var values = $(this).attr('value');
 				values = values ? values.split(',') : [];
 				var index = values.indexOf(value);
-				if(index > -1) {
-					values.splice(index,1);
+				if (index > -1) {
+					values.splice(index, 1);
 				}
 				console.log(values);
-				$(this).attr('value',values.join(','));
+				$(this).attr('value', values.join(','));
 			});
 		}
 	});
@@ -371,7 +402,14 @@ $('.finish-file-draggable-thumb').on('dragstart', function(e) {
 	return true;
 });
 
-
-
 var codeBlock = $('.finish-code pre code');
 hljs.highlightBlock(codeBlock.get(0));
+
+setTimeout(function() {
+	expandFinish();
+}, 1000);
+
+$('.finish-close-button').on('click', function() {
+	console.log('close button');
+	closeFinish();
+});

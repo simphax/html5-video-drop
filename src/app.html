@@ -5,13 +5,15 @@
 	<title>Starter</title>
 	<link rel="stylesheet" type="text/css" href="lib/highlight-style.css">
 	<link rel="stylesheet" type="text/css" href="app.css">
-	<link href='https://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
+	<!--link href='https://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'-->
 </head>
 
 <body>
+	<div class="finish-bg"></div>
 	<div class="finish">
 		<div class="wrapper">
 			<div>
+				<div class="finish-close-button"><img src="images/close.svg"></div>
 				<div class="finish-title"><img src="images/done.svg"></div>
 				<div class="finish-subtitle">Here's your converted files</div>
 				<div class="finish-files">
@@ -54,9 +56,9 @@
 					</div>
 					<div class="tabview-pages">
 						<div class="tabview-page visible">
-							<video preload="metadata" poster="/Users/Simon/Desktop/thumb0.jpg" controls="controls" volume="0" style="width: 100%; height: auto;">
-								<source src="/Users/Simon/Desktop/big_buck_bunny.mp4" type="video/mp4" />
-								<source src="/Users/Simon/Desktop/big_buck_bunny.webm" type="video/webm" />
+							<video preload="metadata" poster="/Users/Simon/Projekt/Egna projekt/Apps/Mac OS X/HTML5 Video Drop/thumb0.jpg" controls="controls" volume="0" style="width: 100%; height: auto;">
+								<source src="/Users/Simon/Projekt/Egna projekt/Apps/Mac OS X/HTML5 Video Drop/big_buck_bunny.mp4" type="video/mp4" />
+								<source src="/Users/Simon/Projekt/Egna projekt/Apps/Mac OS X/HTML5 Video Drop/big_buck_bunny.webm" type="video/webm" />
 							</video>
 						</div>
 						<div class="tabview-page finish-code">
@@ -182,10 +184,12 @@
 	<script>
 	var fs = require('fs');
 	fs.watch('./', function() {
+		console.log('something happened in /');
 		if (location)
 			location.reload();
 	});
 	fs.watch('./js', function() {
+		console.log('something happened in /js');
 		if (location)
 			location.reload();
 	});
