@@ -282,7 +282,7 @@ $('.convertbtn').on('click', function() {
 		ffm.kill(); //Will generate an error
 		conversionOngoing = false;
 	} else if (!conversionOngoing && droppedFile) {
-
+/*
 		$(this).find('.progressbutton-text').html('Converting...');
 		conversionOngoing = true;
 		var size = '800x800';
@@ -326,6 +326,8 @@ $('.convertbtn').on('click', function() {
 		});
 
 		ffm.run();
+		*/
+		expandFinish();
 	}
 });
 
@@ -362,6 +364,7 @@ $('.multiselect').each(function() {
 				values.push(value);
 				console.log(values);
 				$(this).attr('value', values.join(','));
+				$(this).trigger('change');
 			});
 		} else {
 			$(this).removeClass('selected');
@@ -375,6 +378,7 @@ $('.multiselect').each(function() {
 				}
 				console.log(values);
 				$(this).attr('value', values.join(','));
+				$(this).trigger('change');
 			});
 		}
 	});
@@ -440,3 +444,46 @@ $('.finish-close-button').on('click', function() {
 	console.log('close button');
 	closeFinish();
 });
+
+$('.ms-videoproperties').on('change', function() {
+	var values = $(this).attr('value');
+	values = values ? values.split(',') : [];
+	console.log('videoproperties change',values);
+
+	var videoHTMLPreview = generateVideoHTMLPreview(values);
+	var videoHTMLCode = generateVideoHTMLCode(values);
+
+	$("#videoHTMLPreview").html(videoHTMLPreview);
+	$("#videoHTMLCode").html(videoHTMLCode);
+	hljs.highlightBlock($("#videoHTMLCode").get(0));
+});
+
+var generateVideoHTMLPreview = function(attribs) {
+	var controls = attribs.indexOf('controls') != -1 ? ' controls' : '';
+	var responsive = attribs.indexOf('responsive') != -1 ? ' style="width: 100%; height: auto;"' : '';
+	var muted = attribs.indexOf('muted') != -1 ? ' volume="0" muted' : '';
+	var loop = attribs.indexOf('loop') != -1 ? ' loop' : '';
+	var nopreload = attribs.indexOf('preload-none') != -1 ? ' preload="none"' : '';
+	var autoplay = attribs.indexOf('autoplay') != -1 ? ' autoplay' : '';
+
+	return '<video preload="metadata" poster="/Users/Simon/Projekt/Egna projekt/Apps/Mac OS X/HTML5 Video Drop/thumb0.jpg" ' + controls + responsive + muted + loop + nopreload + autoplay + '>\
+	<source src="/Users/Simon/Projekt/Egna projekt/Apps/Mac OS X/HTML5 Video Drop/big_buck_bunny.mp4" type="video/mp4" />\
+<source src="/Users/Simon/Projekt/Egna projekt/Apps/Mac OS X/HTML5 Video Drop/big_buck_bunny.webm" type="video/webm" />\
+</video>';
+}
+
+var generateVideoHTMLCode = function(attribs) {
+	var controls = attribs.indexOf('controls') != -1 ? ' controls' : '';
+	var responsive = attribs.indexOf('responsive') != -1 ? ' style="width: 100%; height: auto;"' : '';
+	var muted = attribs.indexOf('muted') != -1 ? ' volume="0" muted' : '';
+	var loop = attribs.indexOf('loop') != -1 ? ' loop' : '';
+	var nopreload = attribs.indexOf('preload-none') != -1 ? ' preload="none"' : '';
+	var autoplay = attribs.indexOf('autoplay') != -1 ? ' autoplay' : '';
+
+	return '&lt;video poster="thumbnail.jpg"' + responsive + controls + muted + loop + nopreload + autoplay + '>\r\n\
+	&lt;source src="video.mp4" type="video/mp4" />\r\n\
+	&lt;source src="video.webm" type="video/webm" />\r\n\
+	&lt;p>Sorry, your browser does not support HTML5 video&lt;/p>\r\n\
+&lt;/video>';
+}
+

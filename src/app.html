@@ -55,7 +55,7 @@
 						<div class="tabview-tab">Code</div>
 					</div>
 					<div class="tabview-pages">
-						<div class="tabview-page visible">
+						<div class="tabview-page visible" id="videoHTMLPreview">
 							<video preload="metadata" poster="/Users/Simon/Projekt/Egna projekt/Apps/Mac OS X/HTML5 Video Drop/thumb0.jpg" controls="controls" volume="0" style="width: 100%; height: auto;">
 								<source src="/Users/Simon/Projekt/Egna projekt/Apps/Mac OS X/HTML5 Video Drop/big_buck_bunny.mp4" type="video/mp4" />
 								<source src="/Users/Simon/Projekt/Egna projekt/Apps/Mac OS X/HTML5 Video Drop/big_buck_bunny.webm" type="video/webm" />
@@ -63,7 +63,7 @@
 						</div>
 						<div class="tabview-page finish-code">
 							<h2>Paste into your .html file</h2>
-							<pre><code class="language-html">&lt;video poster="thumbnail.jpg" controls style="width: 100%; height: auto;">
+							<pre><code class="language-html" id="videoHTMLCode">&lt;video poster="thumbnail.jpg" style="width: 100%; height: auto;" controls>
 	&lt;source src="video.mp4" type="video/mp4" />
 	&lt;source src="video.webm" type="video/webm" />
 	&lt;p>Sorry, your browser does not support HTML5 video&lt;/p>
@@ -77,7 +77,7 @@
 						<div class="multiselect-item" data-value="loop">Loop</div>
 						<div class="multiselect-item" data-value="preload-none">No preloading</div>
 						<div class="multiselect-item" data-value="autoplay">Autoplay</div>
-						<input type="hidden" class="multiselect-input" value="responsive,controls">
+						<input type="hidden" class="multiselect-input ms-videoproperties" value="responsive,controls">
 					</div>
 				</div>
 			</div>
