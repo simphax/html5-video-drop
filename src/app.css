@@ -471,11 +471,18 @@ body.loaded .settings {
   position: absolute;
   left: 0;
   top: 0px;
-  width: 100%;
-  min-height: 100%;
+  width: 0%;
+  min-height: 0%;
+  max-height: 0%;
   color: #777;
   z-index: 100;
   pointer-events: none;
+  opacity: 1.0;
+  overflow: hidden;
+  background-color: #f9f9f9;
+}
+
+.finish .wrapper {
   opacity: 0.0;
 }
 
@@ -483,28 +490,29 @@ body.loaded .settings {
   position: absolute;
   left: 0;
   top: 0;
-  width: 0;
+  width: 0px;
+  height: 0px;
   background-color: #f9f9f9;
-  height: 0;
   z-index: 3;
 }
 
 .finish-bg.expanded {
-  transition: all .3s;
+  transition: all 4s;
+  transition-timing-function: ease-in-out;
 }
 
 .finish.expanded {
   pointer-events: auto;
-  opacity: 1.0;
-  transition: all .8s;
-  transition-delay: .3s;
+  /*transition: all 4s;
+  transition-timing-function: ease-in-out;
+  */
 }
 
 .finish.expanded .wrapper {
   pointer-events: auto;
   opacity: 1.0;
   transition: all .8s;
-  transition-delay: .3s;
+  transition-delay: 1s;
 }
 
 .finish-title {

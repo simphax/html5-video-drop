@@ -147,30 +147,57 @@ var expandFinish = function() {
 	var offset = $('.convertbtn').offset();
 	var width = $('.convertbtn').outerWidth();
 	var height = $('.convertbtn').outerHeight();
+	var heightPercentage = ($('.convertbtn').outerHeight() / $('body').outerHeight()) * 100;
 	console.log(offset);
 	console.log(width);
-	console.log(height);
-	$('.finish-bg').css('left', offset.left + 'px');
-	$('.finish-bg').css('top', offset.top + 'px');
-	$('.finish-bg').css('width', width + 'px');
-	$('.finish-bg').css('height', '0px');
+	console.log(heightPercentage);
+	$('.finish').css('transition', 'all 0s');
+	$('.finish').css('transition-timing-function', 'ease-in-out');
+	$('.finish').css('left', offset.left + 'px');
+	$('.finish').css('top', offset.top + 'px');
+	$('.finish').css('width', width + 'px');
+	$('.finish').css('min-height', Math.floor(heightPercentage) + '%');
+	$('.finish').css('max-height', Math.floor(heightPercentage) + '%');
+	$('.finish').css('opacity', '0.0');
 	setTimeout(function() {
-		$('.finish').addClass('expanded');	
-		$('.finish-bg').addClass('expanded');
-		$('.finish-bg').css('left', 0 + 'px');
-		$('.finish-bg').css('top', 0 + 'px');
-		$('.finish-bg').css('width', '100%');
-		$('.finish-bg').css('height', '300%');
+		$('.finish').css('transition', 'all 0.1s');
+		$('.finish').css('transition-timing-function', 'ease-in-out');
+		$('.finish').css('opacity', '1.0');
 	}, 100);
+
+	setTimeout(function() {
+		$('.finish').addClass('expanded');
+		$('.finish').css('transition', 'all 0.3s');
+		$('.finish').css('transition-timing-function', 'ease-in-out');
+		$('.finish').css('left', 0 + 'px');
+		$('.finish').css('top', 0 + 'px');
+		$('.finish').css('width', '100%');
+		$('.finish').css('min-height', '100%');
+		$('.finish').css('max-height', '400%');
+	}, 150);
 }
 
 var closeFinish = function() {
 	$('.finish').removeClass('expanded');
-	$('.finish-bg').removeClass('expanded');
-	$('.finish-bg').css('left', '0px');
-	$('.finish-bg').css('top', '0px');
-	$('.finish-bg').css('width', '0px');
-	$('.finish-bg').css('height', '0px');
+	var offset = $('.convertbtn').offset();
+	var width = $('.convertbtn').outerWidth();
+	var height = $('.convertbtn').outerHeight();
+	var heightPercentage = ($('.convertbtn').outerHeight() / $('body').outerHeight()) * 100;
+	console.log(offset);
+	console.log(width);
+	console.log(heightPercentage);
+	$('.finish').css('transition', 'all 0.2s');
+	$('.finish').css('transition-timing-function', 'ease-in-out');
+	$('.finish').css('left', offset.left + 'px');
+	$('.finish').css('top', offset.top + 'px');
+	$('.finish').css('width', width + 'px');
+	$('.finish').css('min-height', Math.floor(heightPercentage) + '%');
+	$('.finish').css('max-height', Math.floor(heightPercentage) + '%');
+	setTimeout(function() {
+		$('.finish').css('transition', 'all 0.1s');
+		$('.finish').css('transition-timing-function', 'ease-in-out');
+		$('.finish').css('opacity', '0.0');
+	}, 150);
 }
 
 var getVideoMeta = function(videoFile, callback) {
@@ -406,7 +433,7 @@ var codeBlock = $('.finish-code pre code');
 hljs.highlightBlock(codeBlock.get(0));
 
 setTimeout(function() {
-	expandFinish();
+	//expandFinish();
 }, 1000);
 
 $('.finish-close-button').on('click', function() {
