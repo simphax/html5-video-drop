@@ -99,6 +99,9 @@ gulp.task 'run:osx64', ['build:osx64'], ->
 gulp.task 'open:osx64', ->
   shelljs.exec 'open ./build/Dropper/osx64/Dropper.app'
 
+gulp.task 'debug:osx64', ->
+  shelljs.exec './cache/0.12.2/osx64/nwjs.app/Contents/MacOS/nwjs ./src'
+
 # Upload release to GitHub
 gulp.task 'release', ['pack:all'], (callback) ->
   gulp.src './dist/*'

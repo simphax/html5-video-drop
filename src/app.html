@@ -114,20 +114,25 @@
 						<h2>Resolution</h2>
 						<div class="slideselect slideselect-res">
 							<div class="slideselect-cursor"></div>
-							<div class="slideselect-item slideselect-item-selected">Original</div>
-							<div class="slideselect-item">4K UHD</div>
-							<div class="slideselect-item">QHD</div>
-							<div class="slideselect-item">1080p</div>
-							<div class="slideselect-item">720p</div>
-							<div class="slideselect-item">480p</div>
-							<div class="slideselect-item">360p</div>
-							<div class="slideselect-item">240p</div>
-							<input type="hidden" class="slideselect-input">
+							<div class="slideselect-item slideselect-item-selected" data-value="original">Original</div>
+							<div class="slideselect-item" data-value="4k">4K UHD</div>
+							<div class="slideselect-item" data-value="qhd">QHD</div>
+							<div class="slideselect-item" data-value="1080p">1080p</div>
+							<div class="slideselect-item" data-value="720p">720p</div>
+							<div class="slideselect-item" data-value="480p">480p</div>
+							<div class="slideselect-item" data-value="360p">360p</div>
+							<div class="slideselect-item" data-value="240p">240p</div>
+							<input type="hidden" class="slideselect-input ss-resolution">
 						</div>
 						<div class="resinput">
-							<span class="resinput-title">MAX RESOLUTION</span>
+							<span class="resinput-title">MAXIMUM RESOLUTION</span>
 							<input type="text" class="resinput-text resinput-width" value="1920"> x
 							<input type="text" class="resinput-text resinput-height" value="1080">
+						</div>
+						<div class="resinput">
+							<span class="resinput-title">OUTPUT RESOLUTION</span>
+							<input type="text" disabled class="resinput-text resoutput-width" value="1920"> x
+							<input type="text" disabled class="resinput-text resoutput-height" value="1080">
 						</div>
 					</div>
 					<div>

@@ -24,12 +24,12 @@ dispatcher.addEventListener('win.confirm', function(data) {
 });
 
 // Window state
-windowBehaviour.restoreWindowState(win);
+//windowBehaviour.restoreWindowState(win);
 windowBehaviour.bindWindowStateEvents(win);
 
 // Check for update
 if (settings.checkUpdateOnLaunch) {
-  updater.checkAndPrompt(gui.App.manifest, win);
+  //updater.checkAndPrompt(gui.App.manifest, win);
 }
 
 // Run as menu bar app
@@ -51,6 +51,7 @@ windowBehaviour.setNewWinPolicy(win);
 // Add a context menu
 menus.injectContextMenu(win, window, document);
 
+/*
 // Reload the app periodically until it loads
 var reloadIntervalId = setInterval(function() {
   if (win.window.navigator.onLine) {
@@ -59,6 +60,6 @@ var reloadIntervalId = setInterval(function() {
     win.reload();
   }
 }, 10 * 1000);
+*/
 
-
-//gui.Window.get().setPosition('center');
+gui.Window.get().setPosition('center');
