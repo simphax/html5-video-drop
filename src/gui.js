@@ -289,8 +289,14 @@ var generateThumbnails = function(videoFile, callback) {
                     	thumbffm = ffmpeg().outputOptions(['-ss', ss, '-i', videoFile, '-qscale:v', '1', '-vframes', '1']);
                     }
                     */
-                    thumbffm = ffmpeg().outputOptions(['-ss', ss, '-i', videoFile, '-qscale:v', '1', '-vframes', '1']);
+                    
+                    thumbffm = ffmpeg();//.outputOptions(['-ss', ss, '-i', videoFileEscaped, '-qscale:v', '1', '-vframes', '1']);
+                    
+                    
+                    thumbffm.input(videoFile);
+                    thumbffm.inputOptions(['-ss', ss]);
                     thumbffm.output(thumbsPath);
+                    thumbffm.outputOptions(['-qscale:v', '1','-vframes', '1']);
                     thumbffm.on('error', function(err, stdout, stderr) {
                         err.stderr = stderr;
                         console.log(err);
@@ -335,7 +341,7 @@ $('.convertbtn').on('click', function() {
         var size = ''; //'800x800';
 
         ffm_mp4 = ffmpeg(droppedFile.path).outputOptions(['-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-profile:v', 'baseline', '-preset', 'fast', '-crf', '18', '-f', 'mp4']);
-        ffm_webm = ffmpeg(droppedFile.path).outputOptions(['-c:v', 'libvpx', '-pix_fmt', 'yuv420p', '-c:a', 'libvorbis', '-quality', 'good', '-b:v', '2M', '-crf', '5', '-f', 'webm']);
+        ffm_webm = ffmpeg(droppedFile.path).outputOptions(['-c:v', 'libvpx', '-pix_fmt', 'yuv420p', '-c:a', 'libvorbis', '-quality', 'good', '-threads', '6', '-b:v', '2M', '-crf', '5', '-f', 'webm']);
         //['-c:v', 'libvpx', '-pix_fmt', 'yuv420p', '-c:a', 'libvorbis', '-quality', 'good', '-b:v', '2M', '-crf', '5', '-f', 'webm']
         /*ffm.on('start', function(commandLine) {
 					console.log('Spawned Ffmpeg with command: ' + commandLine);
@@ -350,7 +356,9 @@ $('.convertbtn').on('click', function() {
         ffm_mp4.output(mp4Path);
         ffm_webm.output(webmPath);
 
+        //Webm is the one who takes the longest time so it could be the one setting the progress.
         ffm_webm.on('progress', function(progress) {
+            console.log(progress)
             console.log('Processing: ' + progress.percent + '% done');
 
             $('.convertbtn').find('.progressbutton-bar').css('width', progress.percent + '%');
@@ -364,6 +372,7 @@ $('.convertbtn').on('click', function() {
             $('.convertbtn').find('.progressbutton-bar').css('width', '0%');
             $('.convertbtn').removeClass('inprogress');
         });
+
         ffm_webm.on('error', function(err, stdout, stderr) {
             err.stderr = stderr;
             console.log(err);
@@ -373,8 +382,12 @@ $('.convertbtn').on('click', function() {
             $('.convertbtn').removeClass('inprogress');
         });
 
+        ffm_mp4.on('end', function() {
+            console.log('MP4 conversion is done');
+        });
+
         ffm_webm.on('end', function() {
-            console.log('End!');
+            console.log('WEBM conversion is done');
             conversionOngoing = false;
             $('.convertbtn').find('.progressbutton-text').html('CONVERT');
             $('.convertbtn').find('.progressbutton-bar').css('width', '0%');
@@ -447,7 +460,7 @@ $('.multiselect').each(function() {
 
 $('.slideselect').each(function() {
     var slideselect = $(this);
-    
+
     slideselect.updateCursorPosition = function() {
         var selectedItem = $(this).find('.slideselect-item.slideselect-item-selected').first();
 
