@@ -8,8 +8,9 @@ body {
 }
 
 body {
-  background-color: #393939;
+  background-color: #555;
   color: #191919;
+  transition: all 0.3s;
 }
 
 body,
@@ -32,7 +33,7 @@ input {
 }
 
 body.dropping {
-  background-color: #444;
+  background-color: #666;
   cursor: copy;
 }
 
@@ -44,8 +45,8 @@ body.dropping {
 }
 
 .droparea {
-  width: 120px;
-  height: 120px;
+  width: 220px;
+  height: 130px;
   border: 5px dashed #222;
   border-radius: 30px;
   margin: 0 auto;
@@ -64,14 +65,15 @@ body.dropping {
 }
 
 body.dropping .droparea {
-  width: 160px;
+  width: 240px;
   height: 160px;
+  border: 5px dashed #ffc000;
 }
 
 body.dropped .droparea {
-  width: 160px;
+  width: 240px;
   height: 160px;
-  border: 5px solid #222;
+  border: 5px solid #ffc000;
 }
 
 body.loaded .droparea {
@@ -82,9 +84,9 @@ body.loaded .droparea {
 }
 
 body.loaded.dropping .droparea {
-  width: 160px;
+  width: 240px;
   height: 160px;
-  border: 8px dashed #222;
+  border: 5px dashed #ffc000;
   border-radius: 30px;
   transition: all .3s cubic-bezier(0.215, 0.610, 0.355, 1.000);
 }
@@ -159,12 +161,20 @@ body.loaded.dropping .droparea-thumbselect {
 }
 
 .droparea-desc {
-  font-weight: 800;
+  padding: 20px;
+  font-weight: 400;
   color: #222;
-  text-transform: uppercase;
+  text-transform: lowercase;
   text-align: center;
   transition: all .1s;
   opacity: 1.0;
+}
+
+.droparea-desc img {
+  width: 36px;
+  height: 36px;
+  display: block;
+  margin: 20px auto;
 }
 
 body.dropping .droparea-desc {
