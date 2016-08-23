@@ -447,8 +447,15 @@ $('.multiselect').each(function() {
 
 $('.slideselect').each(function() {
     var slideselect = $(this);
-
+    
     slideselect.updateCursorPosition = function() {
+        var selectedItem = $(this).find('.slideselect-item.slideselect-item-selected').first();
+
+        slideselect.find('.slideselect-cursor').show();
+        var offsetLeft = selectedItem.offset().left - selectedItem.parent().offset().left;
+        slideselect.find('.slideselect-cursor').css('left', offsetLeft + 'px');
+        var offsetTop = selectedItem.offset().top - selectedItem.parent().offset().top;
+        slideselect.find('.slideselect-cursor').css('top', offsetTop + 'px');
 
     }
 
@@ -457,20 +464,15 @@ $('.slideselect').each(function() {
         slideselect.find('.slideselect-item').removeClass('slideselect-item-selected');
         $(this).addClass('slideselect-item-selected');
 
-        slideselect.find('.slideselect-cursor').show();
-        var offsetLeft = $(this).offset().left - $(this).parent().offset().left;
-        slideselect.find('.slideselect-cursor').css('left', offsetLeft + 'px');
-        var offsetTop = $(this).offset().top - $(this).parent().offset().top;
-        slideselect.find('.slideselect-cursor').css('top', offsetTop + 'px');
+        slideselect.updateCursorPosition()
 
         var value = $(this).data('value');
-
         slideselect.find('.slideselect-input').val(value);
         slideselect.find('.slideselect-input').trigger('change');
     });
 
     $(window).on('resize', function(){
-        
+        slideselect.updateCursorPosition()
     });
 });
 
